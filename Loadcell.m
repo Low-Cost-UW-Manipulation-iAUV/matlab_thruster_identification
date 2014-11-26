@@ -53,8 +53,30 @@ clean = (v_out(:,2) - offset);
 lever_factor = mean(clean ./ (v_out(:,1)));
  
 cleaner_force = clean .* (1/lever_factor) 
-
 kilograms = cleaner_force /g
+
+%% Plot 1
+figure(123345)
+hold all;
+plot(adc_out_grams(:,2),cleaner_force(1:length(adc_out_grams)),'*');
+plot(adc_out_newtons(:,2), cleaner_force(length(adc_out_grams)+1:end),'*');
+ylabel('Force [N]');
+xlabel('ADC Measurement');
+title('Calibration - Determined Force vs ADC measurement');
+legend('Set of weights [gr]', 'Set of forces [N]', 'location','northwest');
+hold off
+%% PLot 2
+figure(1235432)
+hold all
+plot(adc_out_grams(:,1),cleaner_force(1:length(adc_out_grams)),'*');
+plot(adc_out_newtons(:,1), cleaner_force(length(adc_out_grams)+1:end),'*');
+ylabel('Force estimated[N]');
+xlabel('Real Force');
+title('Calibration - Determined Force vs Real Force');
+legend('Set of weights [gr]', 'Set of forces [N]', 'location','northwest');
+hold off
+
+%% Solution
 
 disp('Solution: ');
 offset
